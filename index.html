@@ -1320,10 +1320,9 @@ async function loadChart(ticker) {
       const sym = holding?.eur ? 'MEL.MC' : ticker;
 
       const yahooUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${sym}?interval=1d&period1=${fromTs}&period2=${toTs}`;
-      const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(yahooUrl)}`;
+      const proxy = `https://corsproxy.io/?${encodeURIComponent(yahooUrl)}`;
       const res = await fetch(proxy);
-      const outer = await res.json();
-      const data = JSON.parse(outer.contents);
+      const data = await res.json();
       const result = data?.chart?.result?.[0];
       if (!result) throw new Error('no data returned — try again in a moment');
 
